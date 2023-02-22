@@ -14,6 +14,7 @@ import { LanguagePipe } from './pipes/language.pipe';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HomeComponent } from './components/home/home.component';
+import { GraphQLModule } from './graphql.module';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import { HomeComponent } from './components/home/home.component';
         useClass: TranslateMessageFormatCompiler
       }
     }),
-    RouterModule.forRoot(APP_ROUTES)
+    RouterModule.forRoot(APP_ROUTES),
+    GraphQLModule
   ],
   providers: [],
   bootstrap: [AppComponent]
