@@ -1,2 +1,28 @@
 <p>home works!</p>
-oh
+
+<p *ngFor="let a of books$ | async">
+    {{ a.title }}
+</p>
+
+<div class="container">
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Title</th>
+            <th scope="col">Publisher</th>
+            <th scope="col">Author</th>
+            <th scope="col">Released</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let book of books$ | async; let i = index">
+            <th scope="row">{{ i }}</th>
+            <td>{{ book.title }}</td>
+            <td>{{ book.publisher }}</td>
+            <td>{{ book.author.name }}</td>
+            <td>{{ book.released.year }}</td>
+          </tr>
+        </tbody>
+      </table>
+</div>
