@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterModule } from '@angular/router';
-import { APP_ROUTES } from './app.routes';
 
 import { TranslateLoader, TranslateModule, TranslateCompiler } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -13,15 +11,14 @@ import { AppComponent } from './app.component';
 import { LanguagePipe } from './pipes/language.pipe';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { HomeComponent } from './components/home/home.component';
 import { GraphQLModule } from './graphql.module';
+import { AppRoutingModule } from './app.routing.module';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    LanguagePipe,
-    HomeComponent
+    LanguagePipe
   ],
   imports: [
     CommonModule,
@@ -41,7 +38,7 @@ import { GraphQLModule } from './graphql.module';
         useClass: TranslateMessageFormatCompiler
       }
     }),
-    RouterModule.forRoot(APP_ROUTES),
+    AppRoutingModule,
     GraphQLModule
   ],
   providers: [],
