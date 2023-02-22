@@ -2,4 +2,4 @@
 
 ng g module components/name --routing
 
-ng g c components/name/name --skip-test
+ng g c components/name --skip-test
