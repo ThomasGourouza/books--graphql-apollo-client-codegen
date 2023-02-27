@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Apollo } from 'apollo-angular';
+import { CREATE_Books } from 'src/app/gql/book/book-mutation';
+import { Book, BookInput } from 'src/app/models/book';
 
 @Component({
   selector: 'app-add-book',
@@ -7,9 +11,45 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddBookComponent implements OnInit {
 
-  constructor() { }
+  bookInput: BookInput = {
+    title: "",
+    publisher: "Rings",
+    author: {
+      name: "Obertone",
+      originCountry: "France",
+      addresses: [
+        {
+          street: "rue de la paix",
+          city: "Paris",
+          zipCode: "75000",
+          country: "France"
+        }
+      ]
+    },
+    released: {
+      year: 2023,
+      printedEdition: true,
+      releasedCountry: "France"
+    }
+  };
+
+  constructor(
+    private apollo: Apollo,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
+  }
+
+  public add(): void {
+    this.apollo.mutate<{ addBook: Book; }>({
+      mutation: CREATE_Books,
+      variables: {
+        bookInput: this.bookInput
+      }
+    }).subscribe((data) =>
+      this.router.navigate(["/home"])
+    );
   }
 
 }

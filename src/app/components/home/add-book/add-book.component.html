@@ -1,1 +1,13 @@
-<p>add-book works!</p>
+<div class="container">
+    <legend>Add Book</legend>
+    <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <input
+            type="text"
+            class="form-control"
+            id="title"
+            [(ngModel)]="bookInput.title"
+        >
+    </div>
+    <button class="btn btn-primary" (click)="add()">Add</button>
+</div>

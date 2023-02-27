@@ -7,3 +7,10 @@ export interface Book {
     author: Author;
     released: ReleaseHistory;
 }
+
+export interface BookInput {
+    title: string;
+    publisher: string;
+    author: Author;
+    released: ReleaseHistory;
+}
