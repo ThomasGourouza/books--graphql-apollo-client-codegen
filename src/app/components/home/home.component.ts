@@ -15,18 +15,33 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private apollo: Apollo
-  ) {
-    // do something
-  }
+  ) { }
 
   ngOnInit(): void {
-    this.books$ = this.apollo.watchQuery<{ books: Book[] }>(
-      { query: GET_Books }
-    ).valueChanges.pipe(
-      map((result) => 
+    this.getBooks();
+  }
+
+  private getBooks(): void {
+    this.books$ = this.apollo.watchQuery<{ books: Book[]; }>({
+      query: GET_Books,
+      fetchPolicy: 'no-cache'
+    }).valueChanges.pipe(
+      map((result) =>
         result.data.books
       )
     );
   }
+
+  // private addBooks(bookName: string, authorName: string): void {
+  //   this.apollo.mutate<{ books: Book[]; }>({
+  //     mutation: GET_Books,
+  //     variables: {
+  //       name: bookName,
+  //       author: authorName
+  //     }
+  //   }).subscribe((data) =>
+  //     this.router.navigate(['/'])
+  //   );
+  // }
 
 }
