@@ -533,7 +533,7 @@ export const AddBookDocument = gql`
     providedIn: 'root'
   })
   export class AddBookGQL extends Apollo.Mutation<AddBookMutation, AddBookMutationVariables> {
-    document = AddBookDocument;
+    override document = AddBookDocument;
     
     constructor(apollo: Apollo.Apollo) {
       super(apollo);
@@ -551,7 +551,7 @@ export const GetAllBooksDocument = gql`
     providedIn: 'root'
   })
   export class GetAllBooksGQL extends Apollo.Query<GetAllBooksQuery, GetAllBooksQueryVariables> {
-    document = GetAllBooksDocument;
+    override document = GetAllBooksDocument;
     
     constructor(apollo: Apollo.Apollo) {
       super(apollo);
@@ -569,7 +569,7 @@ export const GetBooksByAuthorDocument = gql`
     providedIn: 'root'
   })
   export class GetBooksByAuthorGQL extends Apollo.Query<GetBooksByAuthorQuery, GetBooksByAuthorQueryVariables> {
-    document = GetBooksByAuthorDocument;
+    override document = GetBooksByAuthorDocument;
     
     constructor(apollo: Apollo.Apollo) {
       super(apollo);

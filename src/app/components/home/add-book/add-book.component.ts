@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Apollo } from 'apollo-angular';
-import { AddBookDocument, GetAllBooksDocument } from 'src/app/generated-graphql/types.generated';
-import { Book, BookInput } from 'src/app/models/book';
+import { Book, BookInput, GetAllBooksDocument, AddBookDocument } from 'src/app/generated-graphql/types.generated';
 
 @Component({
   selector: 'app-add-book',

@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { map, Observable, of } from 'rxjs';
-import { GetAllBooksDocument } from 'src/app/generated-graphql/types.generated';
-import { Book } from 'src/app/models/book';
+import { Book, GetAllBooksDocument } from 'src/app/generated-graphql/types.generated';
 
 @Component({
   selector: 'app-home',
