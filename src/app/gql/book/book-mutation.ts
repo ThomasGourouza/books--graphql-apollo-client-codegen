@@ -1,23 +1,11 @@
 import { gql } from "apollo-angular";
+import { BOOK_FIELDS_RESULTS } from "./fragments/book-fragment";
 
-export const CREATE_Books = gql`mutation newBook($bookInput: BookInput!) {
-    addBook(bookInput: $bookInput) {
-        title
-        publisher
-        author {
-            name
-            originCountry
-            addresses {
-            street
-            city
-            zipCode
-            country
-            }
-        }
-        released {
-            year
-            printedEdition
-            releasedCountry
+export const CREATE_Books = gql`
+    mutation newBook($bookInput: BookInput!) {
+        addBook(bookInput: $bookInput) {
+            ...bookFields
         }
     }
-  }`;
+    ${BOOK_FIELDS_RESULTS}
+`;

@@ -1,23 +1,11 @@
 import { gql } from "apollo-angular";
+import { BOOK_FIELDS_RESULTS } from "./fragments/book-fragment";
 
-export const GET_Books = gql `query {
+export const GET_Books = gql`
+  query {
     books {
-      title
-      publisher
-      author {
-        name
-        originCountry
-        addresses {
-          street
-          city
-          zipCode
-          country
-        }
-      }
-      released {
-        year
-        printedEdition
-        releasedCountry
-      }
-    } 
-  }`;
+      ...bookFields
+    }
+  }
+  ${BOOK_FIELDS_RESULTS}
+`;
