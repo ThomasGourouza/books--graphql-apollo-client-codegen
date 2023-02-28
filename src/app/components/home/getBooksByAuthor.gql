@@ -1,0 +1,5 @@
+query getBooksByAuthor($author: String) {
+    books(author: $author) {
+      ...bookFieldsFull
+    }
+}

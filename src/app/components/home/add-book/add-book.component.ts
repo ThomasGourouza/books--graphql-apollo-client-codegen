@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Apollo } from 'apollo-angular';
-import { CREATE_Books } from 'src/app/gql/book/book-mutation';
-import { GET_Books } from 'src/app/gql/book/book-query';
+import { AddBookDocument, GetAllBooksDocument } from 'src/app/generated-graphql/types.generated';
 import { Book, BookInput } from 'src/app/models/book';
 
 @Component({
@@ -44,7 +43,7 @@ export class AddBookComponent implements OnInit {
 
   public add(): void {
     this.apollo.mutate<{ addBook: Book; }>({
-      mutation: CREATE_Books,
+      mutation: AddBookDocument,
       variables: {
         bookInput: this.bookInput
       },
@@ -52,14 +51,14 @@ export class AddBookComponent implements OnInit {
       update: (store, response) => {
         if (response?.data?.addBook) {
           const allData = store.readQuery<{ books: Book[]; }>({
-            query: GET_Books
+            query: GetAllBooksDocument
           });
           if (allData && allData.books.length > 0) {
             const newData = [...allData.books];
             newData.push(response.data.addBook);
 
             store.writeQuery<{ books: Book[]; }>({
-              query: GET_Books,
+              query: GetAllBooksDocument,
               data: { books: newData }
             });
           }

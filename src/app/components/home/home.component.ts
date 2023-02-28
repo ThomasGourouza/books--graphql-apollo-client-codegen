@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { map, Observable, of } from 'rxjs';
-import { GET_Books } from 'src/app/gql/book/book-query';
+import { GetAllBooksDocument } from 'src/app/generated-graphql/types.generated';
 import { Book } from 'src/app/models/book';
 
 @Component({
@@ -23,7 +23,7 @@ export class HomeComponent implements OnInit {
 
   private getBooks(): void {
     this.books$ = this.apollo.watchQuery<{ books: Book[]; }>({
-      query: GET_Books,
+      query: GetAllBooksDocument,
       // fetchPolicy: 'no-cache'
     }).valueChanges.pipe(
       map((result) =>
