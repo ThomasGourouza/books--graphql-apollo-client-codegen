@@ -11,6 +11,7 @@ import { Book, DeleteBookDocument, GetAllBooksDocument } from 'src/app/generated
 export class HomeComponent implements OnInit {
 
   books$: Observable<Book[]> = of([]);
+  idToDelete: string = "";
 
   constructor(
     private apollo: Apollo
