@@ -55,6 +55,7 @@ export type AuthorInput = {
 export type Book = {
   __typename?: 'Book';
   author: Author;
+  id: Scalars['ID'];
   publisher: Scalars['String'];
   released?: Maybe<ReleaseHistory>;
   title: Scalars['String'];
@@ -341,6 +342,7 @@ export type Mutation = {
   addHello?: Maybe<Scalars['Int']>;
   deleteHello?: Maybe<Scalars['Int']>;
   replaceHelloText?: Maybe<Array<Maybe<Hello>>>;
+  updateBook?: Maybe<Book>;
 };
 
 
@@ -361,6 +363,12 @@ export type MutationDeleteHelloArgs = {
 
 export type MutationReplaceHelloTextArgs = {
   helloInput: HelloInput;
+};
+
+
+export type MutationUpdateBookArgs = {
+  bookInput: BookInput;
+  id: Scalars['String'];
 };
 
 /** Pet's name, make it <strong>cute</strong> */
@@ -386,6 +394,7 @@ export type Query = {
   _service: _Service;
   additionalOnRequest?: Maybe<Scalars['String']>;
   allHellos?: Maybe<Array<Maybe<Hello>>>;
+  bookById?: Maybe<Book>;
   books?: Maybe<Array<Maybe<Book>>>;
   booksByReleased?: Maybe<Array<Maybe<Book>>>;
   monAutreTest?: Maybe<Scalars['String']>;
@@ -393,6 +402,11 @@ export type Query = {
   oneHello?: Maybe<Hello>;
   pets?: Maybe<Array<Maybe<Pet>>>;
   smartSearch?: Maybe<Array<Maybe<SmartSearchResult>>>;
+};
+
+
+export type QueryBookByIdArgs = {
+  id?: InputMaybe<Scalars['String']>;
 };
 
 
@@ -462,7 +476,7 @@ export type AddBookMutationVariables = Exact<{
 }>;
 
 
-export type AddBookMutation = { __typename?: 'Mutation', addBook?: { __typename?: 'Book', title: string, publisher: string, author: { __typename?: 'Author', name: string, originCountry?: string | null, addresses: Array<{ __typename?: 'Address', street: string, city: string, zipCode?: string | null, country: string }> }, released?: { __typename?: 'ReleaseHistory', year: number, printedEdition?: boolean | null, releasedCountry?: string | null } | null } | null };
+export type AddBookMutation = { __typename?: 'Mutation', addBook?: { __typename?: 'Book', id: string, title: string, publisher: string, author: { __typename?: 'Author', name: string, originCountry?: string | null, addresses: Array<{ __typename?: 'Address', street: string, city: string, zipCode?: string | null, country: string }> }, released?: { __typename?: 'ReleaseHistory', year: number, printedEdition?: boolean | null, releasedCountry?: string | null } | null } | null };
 
 export type AddressFieldsFullFragment = { __typename?: 'Address', street: string, city: string, zipCode?: string | null, country: string };
 
@@ -470,19 +484,34 @@ export type AuthorFieldsFullFragment = { __typename?: 'Author', name: string, or
 
 export type ReleaseFieldsFullFragment = { __typename?: 'ReleaseHistory', year: number, printedEdition?: boolean | null, releasedCountry?: string | null };
 
-export type BookFieldsFullFragment = { __typename?: 'Book', title: string, publisher: string, author: { __typename?: 'Author', name: string, originCountry?: string | null, addresses: Array<{ __typename?: 'Address', street: string, city: string, zipCode?: string | null, country: string }> }, released?: { __typename?: 'ReleaseHistory', year: number, printedEdition?: boolean | null, releasedCountry?: string | null } | null };
+export type BookFieldsFullFragment = { __typename?: 'Book', id: string, title: string, publisher: string, author: { __typename?: 'Author', name: string, originCountry?: string | null, addresses: Array<{ __typename?: 'Address', street: string, city: string, zipCode?: string | null, country: string }> }, released?: { __typename?: 'ReleaseHistory', year: number, printedEdition?: boolean | null, releasedCountry?: string | null } | null };
+
+export type GetBookByIdQueryVariables = Exact<{
+  id?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type GetBookByIdQuery = { __typename?: 'Query', bookById?: { __typename?: 'Book', id: string, title: string, publisher: string, author: { __typename?: 'Author', name: string, originCountry?: string | null, addresses: Array<{ __typename?: 'Address', street: string, city: string, zipCode?: string | null, country: string }> }, released?: { __typename?: 'ReleaseHistory', year: number, printedEdition?: boolean | null, releasedCountry?: string | null } | null } | null };
+
+export type UpdateBookMutationVariables = Exact<{
+  id: Scalars['String'];
+  bookInput: BookInput;
+}>;
+
+
+export type UpdateBookMutation = { __typename?: 'Mutation', updateBook?: { __typename?: 'Book', id: string, title: string, publisher: string, author: { __typename?: 'Author', name: string, originCountry?: string | null, addresses: Array<{ __typename?: 'Address', street: string, city: string, zipCode?: string | null, country: string }> }, released?: { __typename?: 'ReleaseHistory', year: number, printedEdition?: boolean | null, releasedCountry?: string | null } | null } | null };
 
 export type GetAllBooksQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllBooksQuery = { __typename?: 'Query', books?: Array<{ __typename?: 'Book', title: string, publisher: string, author: { __typename?: 'Author', name: string, originCountry?: string | null, addresses: Array<{ __typename?: 'Address', street: string, city: string, zipCode?: string | null, country: string }> }, released?: { __typename?: 'ReleaseHistory', year: number, printedEdition?: boolean | null, releasedCountry?: string | null } | null } | null> | null };
+export type GetAllBooksQuery = { __typename?: 'Query', books?: Array<{ __typename?: 'Book', id: string, title: string, publisher: string, author: { __typename?: 'Author', name: string, originCountry?: string | null, addresses: Array<{ __typename?: 'Address', street: string, city: string, zipCode?: string | null, country: string }> }, released?: { __typename?: 'ReleaseHistory', year: number, printedEdition?: boolean | null, releasedCountry?: string | null } | null } | null> | null };
 
 export type GetBooksByAuthorQueryVariables = Exact<{
   author?: InputMaybe<Scalars['String']>;
 }>;
 
 
-export type GetBooksByAuthorQuery = { __typename?: 'Query', books?: Array<{ __typename?: 'Book', title: string, publisher: string, author: { __typename?: 'Author', name: string, originCountry?: string | null, addresses: Array<{ __typename?: 'Address', street: string, city: string, zipCode?: string | null, country: string }> }, released?: { __typename?: 'ReleaseHistory', year: number, printedEdition?: boolean | null, releasedCountry?: string | null } | null } | null> | null };
+export type GetBooksByAuthorQuery = { __typename?: 'Query', books?: Array<{ __typename?: 'Book', id: string, title: string, publisher: string, author: { __typename?: 'Author', name: string, originCountry?: string | null, addresses: Array<{ __typename?: 'Address', street: string, city: string, zipCode?: string | null, country: string }> }, released?: { __typename?: 'ReleaseHistory', year: number, printedEdition?: boolean | null, releasedCountry?: string | null } | null } | null> | null };
 
 export const AddressFieldsFullFragmentDoc = gql`
     fragment addressFieldsFull on Address {
@@ -510,6 +539,7 @@ export const ReleaseFieldsFullFragmentDoc = gql`
     `;
 export const BookFieldsFullFragmentDoc = gql`
     fragment bookFieldsFull on Book {
+  id
   title
   publisher
   author {
@@ -534,6 +564,42 @@ export const AddBookDocument = gql`
   })
   export class AddBookGQL extends Apollo.Mutation<AddBookMutation, AddBookMutationVariables> {
     override document = AddBookDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
+export const GetBookByIdDocument = gql`
+    query getBookById($id: String) {
+  bookById(id: $id) {
+    ...bookFieldsFull
+  }
+}
+    ${BookFieldsFullFragmentDoc}`;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class GetBookByIdGQL extends Apollo.Query<GetBookByIdQuery, GetBookByIdQueryVariables> {
+    override document = GetBookByIdDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
+export const UpdateBookDocument = gql`
+    mutation updateBook($id: String!, $bookInput: BookInput!) {
+  updateBook(id: $id, bookInput: $bookInput) {
+    ...bookFieldsFull
+  }
+}
+    ${BookFieldsFullFragmentDoc}`;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class UpdateBookGQL extends Apollo.Mutation<UpdateBookMutation, UpdateBookMutationVariables> {
+    override document = UpdateBookDocument;
     
     constructor(apollo: Apollo.Apollo) {
       super(apollo);
@@ -597,11 +663,13 @@ export const GetBooksByAuthorDocument = gql`
     
 export const Operations = {
   Query: {
+    getBookById: 'getBookById',
     getAllBooks: 'getAllBooks',
     getBooksByAuthor: 'getBooksByAuthor'
   },
   Mutation: {
-    addBook: 'addBook'
+    addBook: 'addBook',
+    updateBook: 'updateBook'
   },
   Fragment: {
     addressFieldsFull: 'addressFieldsFull',

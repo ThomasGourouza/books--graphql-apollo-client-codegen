@@ -36,6 +36,7 @@ input AuthorInput {
 
 type Book {
   author: Author!
+  id: ID!
   publisher: String!
   released: ReleaseHistory
   title: String!
@@ -342,6 +343,7 @@ type Mutation {
   addHello(helloInput: HelloInput!): Int
   deleteHello(number: Int!): Int
   replaceHelloText(helloInput: HelloInput!): [Hello]
+  updateBook(bookInput: BookInput!, id: String!): Book
 }
 
 """An Int scalar that must be greater than or equal to zero"""
@@ -369,6 +371,7 @@ type Query {
   _service: _Service!
   additionalOnRequest: String
   allHellos: [Hello]
+  bookById(id: String): Book
   books(author: String): [Book]
   booksByReleased(releasedInput: ReleaseHistoryInput!): [Book]
   monAutreTest(uneVariable: ReleaseHistoryInput!): String

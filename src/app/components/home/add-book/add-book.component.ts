@@ -52,7 +52,7 @@ export class AddBookComponent implements OnInit {
           const allData = store.readQuery<{ books: Book[]; }>({
             query: GetAllBooksDocument
           });
-          if (allData && allData.books.length > 0) {
+          if (!!allData && !!allData.books) {
             const newData = [...allData.books];
             newData.push(response.data.addBook);
 

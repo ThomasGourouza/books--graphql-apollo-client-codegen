@@ -1,0 +1,5 @@
+mutation updateBook($id: String!, $bookInput: BookInput!) {
+  updateBook(id: $id, bookInput: $bookInput) {
+		...bookFieldsFull
+  }
+}

@@ -25,7 +25,7 @@ export class HomeComponent implements OnInit {
       query: GetAllBooksDocument,
       // fetchPolicy: 'no-cache'
     }).valueChanges.pipe(
-      map((result) =>
+      map((result) => 
         result.data.books
       )
     );
