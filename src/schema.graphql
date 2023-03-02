@@ -341,6 +341,7 @@ input HelloInput {
 type Mutation {
   addBook(bookInput: BookInput!): Book
   addHello(helloInput: HelloInput!): Int
+  deleteBookById(id: String!): Boolean
   deleteHello(number: Int!): Int
   replaceHelloText(helloInput: HelloInput!): [Hello]
   updateBook(bookInput: BookInput!, id: String!): Book

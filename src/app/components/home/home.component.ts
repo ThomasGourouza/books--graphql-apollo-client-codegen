@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { map, Observable, of } from 'rxjs';
-import { Book, GetAllBooksDocument } from 'src/app/generated-graphql/types.generated';
+import { Book, DeleteBookDocument, GetAllBooksDocument } from 'src/app/generated-graphql/types.generated';
 
 @Component({
   selector: 'app-home',
@@ -29,6 +29,29 @@ export class HomeComponent implements OnInit {
         result.data.books
       )
     );
+  }
+
+  public deleteBook(id: string): void {
+    this.apollo.mutate<{ deleteBookById: boolean; }>({
+      mutation: DeleteBookDocument,
+      variables: { id },
+      update: (store, response) => {
+        if (response?.data?.deleteBookById) {
+          const allData = store.readQuery<{ books: Book[]; }>({
+            query: GetAllBooksDocument
+          });
+          if (!!allData && !!allData.books) {
+            const newData = [...allData.books].filter((book) =>
+              book.id !== id
+            );
+            store.writeQuery<{ books: Book[]; }>({
+              query: GetAllBooksDocument,
+              data: { books: newData }
+            });
+          }
+        }
+      }
+    }).subscribe();
   }
 
 }

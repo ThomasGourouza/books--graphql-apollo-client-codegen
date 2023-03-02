@@ -340,6 +340,7 @@ export type Mutation = {
   __typename?: 'Mutation';
   addBook?: Maybe<Book>;
   addHello?: Maybe<Scalars['Int']>;
+  deleteBookById?: Maybe<Scalars['Boolean']>;
   deleteHello?: Maybe<Scalars['Int']>;
   replaceHelloText?: Maybe<Array<Maybe<Hello>>>;
   updateBook?: Maybe<Book>;
@@ -353,6 +354,11 @@ export type MutationAddBookArgs = {
 
 export type MutationAddHelloArgs = {
   helloInput: HelloInput;
+};
+
+
+export type MutationDeleteBookByIdArgs = {
+  id: Scalars['String'];
 };
 
 
@@ -486,6 +492,13 @@ export type ReleaseFieldsFullFragment = { __typename?: 'ReleaseHistory', year: n
 
 export type BookFieldsFullFragment = { __typename?: 'Book', id: string, title: string, publisher: string, author: { __typename?: 'Author', name: string, originCountry?: string | null, addresses: Array<{ __typename?: 'Address', street: string, city: string, zipCode?: string | null, country: string }> }, released?: { __typename?: 'ReleaseHistory', year: number, printedEdition?: boolean | null, releasedCountry?: string | null } | null };
 
+export type DeleteBookMutationVariables = Exact<{
+  id: Scalars['String'];
+}>;
+
+
+export type DeleteBookMutation = { __typename?: 'Mutation', deleteBookById?: boolean | null };
+
 export type GetBookByIdQueryVariables = Exact<{
   id?: InputMaybe<Scalars['String']>;
 }>;
@@ -564,6 +577,22 @@ export const AddBookDocument = gql`
   })
   export class AddBookGQL extends Apollo.Mutation<AddBookMutation, AddBookMutationVariables> {
     override document = AddBookDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
+export const DeleteBookDocument = gql`
+    mutation deleteBook($id: String!) {
+  deleteBookById(id: $id)
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class DeleteBookGQL extends Apollo.Mutation<DeleteBookMutation, DeleteBookMutationVariables> {
+    override document = DeleteBookDocument;
     
     constructor(apollo: Apollo.Apollo) {
       super(apollo);
@@ -669,6 +698,7 @@ export const Operations = {
   },
   Mutation: {
     addBook: 'addBook',
+    deleteBook: 'deleteBook',
     updateBook: 'updateBook'
   },
   Fragment: {
